@@ -1,0 +1,11 @@
+<div>
+  <h1>Subject score</h1>
+ @for (item of itmesList; track $index) {
+  <div>
+    <p>{{$index}} &nbsp;{{item.num_of_sat_test_takers}} || &nbsp;{{item.sat_critical_reading_avg_score}}
+      || &nbsp;{{item.sat_math_avg_score}}    || &nbsp;{{item.sat_writing_avg_score}}
+    </p>
+</div>
+ }
+
+</div>
