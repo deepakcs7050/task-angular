@@ -1,0 +1,31 @@
+<mat-card *ngIf="loading$ | async; else schoolList">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  <p>Loading schools...</p>
+</mat-card>
+
+<ng-template #schoolList>
+  <mat-card *ngIf="schools$ | async as schools">
+    <mat-card-header>
+      <mat-card-title>NYC High Schools</mat-card-title>
+      <mat-card-subtitle>List of all NYC High Schools</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item
+          *ngFor="let school of schools"
+          (click)="selectSchool(school.dbn)"
+          class="school-item"
+        >
+          <span matListItemTitle>{{ school.school_name }}</span>
+          <span matListItemLine>{{ school.location }}</span>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="!(schools$ | async)">
+    <mat-card-content>
+      <p>No schools available.</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
