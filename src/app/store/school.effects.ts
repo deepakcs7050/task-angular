@@ -23,14 +23,13 @@ export class SchoolEffects {
     private store: Store
   ) {}
 
-  // ✅ Load Schools Effect (Prevents Unnecessary API Calls)
   loadSchools$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(loadSchools, refreshSchools), // ✅ Trigger on both load and refresh
-      withLatestFrom(this.store.pipe(select(selectSchoolsLoaded))), // ✅ Check if schools are already loaded
+      ofType(loadSchools, refreshSchools),
+      withLatestFrom(this.store.pipe(select(selectSchoolsLoaded))),
       mergeMap(([action, schoolsLoaded]) => {
         if (schoolsLoaded && action.type !== '[School] Refresh Schools') {
-          return of(); // 🚀 Prevent API call unless it's a refresh
+          return of();
         }
         return this.schoolService.getSchools().pipe(
           map((schools) => loadSchoolsSuccess({ schools })),
@@ -40,7 +39,6 @@ export class SchoolEffects {
     )
   );
 
-  // ✅ Load SAT Scores Effect (Always Fetch Fresh Data)
   loadSatScores$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadSatScores),
